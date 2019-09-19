@@ -21,7 +21,7 @@
                         <input type="password" name="password" id="password" placeholder="Password">
                     </div>
 
-                    <button type="submit" class="btn full">Login</button>
+                    <button type="submit" class="btn full" v-on:click="goToDashboard($event)">Login</button>
 
                     <p class="forgot_password">Forgot your password? <a href="#">Click here</a></p>
             </form>
@@ -34,17 +34,21 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
+// import Router from 'vue-router';
 
-// export default {
-//   name: 'home',
-//   components: {
-//     HelloWorld
-//   }
-// }
+export default {
+    name: 'home',
+    methods: {
+        goToDashboard (event) {
+            event.preventDefault()
+            this.$router.push('/dashboard')
+        }
+    }
+}
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .login {
         background: url(../assets/login-bg.png);
         height: 100vh;
@@ -107,7 +111,6 @@
 
     .btn {
         padding: 15px 60px;
-        border: none;
         background: #FBB837;
         color: #fff;
         font-size: 1rem;
