@@ -1,0 +1,10 @@
+<svg width="37" height="31" viewBox="0 0 37 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="mail">
+<path id="Shape" fill-rule="evenodd" clip-rule="evenodd" d="M33.1978 0.377441H3.68865C1.65989 0.377441 0 2.09997 0 4.20528V27.1723C0 29.2776 1.65989 31.0002 3.68865 31.0002H33.1978C35.2266 31.0002 36.8865 29.2776 36.8865 27.1723V4.20528C36.8865 2.09997 35.2266 0.377441 33.1978 0.377441ZM33.4067 8.33121L18.4433 17.7765L3.47998 8.33121V4.55308L18.4433 13.9984L33.4067 4.55308V8.33121Z" fill="url(#paint0_linear)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear" x1="18.4432" y1="0.377441" x2="18.4432" y2="31.0002" gradientUnits="userSpaceOnUse">
+<stop offset="1" stop-color="#1470DB"/>
+</linearGradient>
+</defs>
+</svg>

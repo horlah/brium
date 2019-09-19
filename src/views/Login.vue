@@ -44,7 +44,7 @@
 
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     .login {
         background: url(../assets/login-bg.png);
         height: 100vh;
@@ -107,7 +107,6 @@
 
     .btn {
         padding: 15px 60px;
-        border: none;
         background: #FBB837;
         color: #fff;
         font-size: 1rem;

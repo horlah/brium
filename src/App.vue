@@ -15,4 +15,9 @@ body {
 * {
     text-decoration: none;
 }
+
+button {
+    background: transparent;
+    border: none;
+}
 </style>
