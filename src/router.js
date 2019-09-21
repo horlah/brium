@@ -9,17 +9,20 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            component: () => import('./views/App.vue'),
+            redirect: '/dashboard',
+            children: [
+                {
+                    path: '/dashboard',
+                    name: 'dashboard',
+                    component: () => import('./views/pages/Dashboard.vue')
+                }
+            ]
         },
         {
             path: '/login',
             name: 'Login',
             component: () => import('./views/Login.vue')
-        },
-        {
-            path: '/dashboard',
-            name: 'dashboard',
-            component: () => import('./views/Dashboard.vue')
         }
     ]
 })
