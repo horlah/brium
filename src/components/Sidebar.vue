@@ -72,7 +72,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .sidebar {
-    background: #1470DB;
+    background: var(--primary-color);
     width: 18%;
     height: 100vh;
     position: fixed;
