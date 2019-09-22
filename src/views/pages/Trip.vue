@@ -542,13 +542,13 @@ div {
         align-items: center;
 
         div {
-            padding: 10px 13px;
-            margin: 0 10px;
+            padding: 8px 11px;
+            margin: 0 8px;
 
             &.active {
                 background: var(--secondary-color);
                 border-radius: 50px;
-                padding: 10px 15px;
+                padding: 8px 13px;
             }
         }
 
