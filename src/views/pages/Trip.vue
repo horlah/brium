@@ -446,10 +446,10 @@ div {
     top: -25.5px;
 
     button.tab {
-        padding: 15px 30px;
+        padding: 15px 35px;
         background: var(--white-color);
         box-shadow: 0px 4px 4px rgba(210, 207, 207, 0.33);
-        font-size: 1.1rem;
+        font-size: .9rem;
         outline: none;
 
         &.active {
