@@ -21,6 +21,41 @@ export default new Router({
                     path: '/trips',
                     name: 'trips',
                     component: () => import('./views/pages/Trip.vue')
+                },
+                {
+                    path: '/drivers',
+                    name: 'drivers',
+                    component: () => import('./views/pages/Drivers.vue')
+                },
+                {
+                    path: '/manual-dispatch',
+                    name: 'manual-dispatch',
+                    component: () => import('./views/pages/Manuel-Dispatch.vue')
+                },
+                {
+                    path: '/passengers',
+                    name: 'passengers',
+                    component: () => import('./views/pages/Passengers.vue')
+                },
+                {
+                    path: '/price-management',
+                    name: 'price-management',
+                    component: () => import('./views/pages/Price-Management.vue')
+                },
+                {
+                    path: '/reports',
+                    name: 'reports',
+                    component: () => import('./views/pages/Reports.vue')
+                },
+                {
+                    path: '/settings',
+                    name: 'settings',
+                    component: () => import('./views/pages/Settings.vue')
+                },
+                {
+                    path: '/vehicles',
+                    name: 'vehicles',
+                    component: () => import('./views/pages/Vehicles.vue')
                 }
             ]
         },

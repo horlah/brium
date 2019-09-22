@@ -17,43 +17,43 @@
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'drivers'}">
                     <img src="../assets/driver.svg" alt="drivers icon">
                     Drivers
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'passengers'}">
                     <img src="../assets/passenger.svg" alt="passengers icon">
                     Passengers
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'vehicles'}">
                     <img src="../assets/vehicle.svg" alt="vehicles icon">
                     Vehicles
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'manual-dispatch'}">
                     <img src="../assets/manual-dispatch.svg" alt="manual dispatch icon">
                     Manual Dispatch
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'reports'}">
                     <img src="../assets/report.svg" alt="reports icon">
                     Reports
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'price-management'}">
                     <img src="../assets/price.svg" alt="price management icon">
                     Price Management
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'settings'}">
                     <img src="../assets/settings-gears.svg" alt="settings icon">
                     Settings
                 </router-link>
@@ -113,7 +113,7 @@ ul {
             padding: 20px 0 20px 30px;
             font-size: .8rem;
 
-            &:active {
+            &.router-link-active {
                 background: #FBB837;
             }
 
