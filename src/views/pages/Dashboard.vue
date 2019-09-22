@@ -152,7 +152,7 @@
                 </div>
                 <div>
                     <div class="head">Trip Routes</div>
-                    <div class="details trip">
+                    <div class="details trip-details">
                         <div>300 Herbert Macaulay Way</div>
                         <div>Eti-Osa,Lagos</div>
                     </div>
@@ -217,7 +217,7 @@ export default {
     display: flex;
     width: calc(95% - 60px);
     margin: 30px auto;
-    background: #fff;
+    background: var(--white-color);
     padding: 30px;
     align-items: center;
     justify-content: space-evenly;
@@ -428,47 +428,6 @@ export default {
                 color: var(--secondary-color);
             }
         }
-
-        .trip {
-            margin-left: 20px;
-
-            & > div {
-                position: relative;
-                margin-bottom: 10px;
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    left: -20px;
-                    top: 3px;
-                    width: 10px;
-                    height: 10px;
-                    border-radius: 50px;
-                }
-
-                &:first-child {
-                    margin-bottom: 15px;
-
-                    &::after {
-                        background: var(--secondary-color);
-                    }
-                    &::before {
-                        content: '';
-                        position: absolute;
-                        left: -16.5px;
-                        top: 16.5px;
-                        width: 2px;
-                        height: 15px;
-                        background: #c4c4c4;
-                    }
-                }
-                &:last-child {
-                    &::after {
-                        background: var(--primary-color);
-                    }
-                }
-            }
-        }
     }
 }
 
@@ -477,15 +436,19 @@ export default {
     background: var(--white-color);
 
     .map-details {
-        padding: 20px 30px 0px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .search {
+            margin-right: 30px;
+        }
 
         .details {
             display: flex;
             justify-content: space-evenly;
             text-align: center;
+            padding: 20px 30px 0px;
 
             & > div {
                 padding: 0 20px 20px;
@@ -525,28 +488,6 @@ export default {
 
             .text {
                 font-size: .8rem;
-            }
-        }
-
-        .search {
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #000;
-
-            label {
-                display: flex;
-                align-items: center;
-
-                img {
-                    width: 85%;
-                }
-            }
-
-            input {
-                font-size: 1rem;
-                padding: 10px 15px;
-                border: none;
-                outline: none;
             }
         }
     }
