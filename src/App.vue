@@ -81,7 +81,7 @@ button {
         align-items: center;
 
         img {
-            width: 85%;
+            width: 70%;
         }
     }
 
