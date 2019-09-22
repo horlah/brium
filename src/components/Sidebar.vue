@@ -11,7 +11,7 @@
                 </router-link>
             </li>
             <li>
-                <router-link :to="{ name: 'dashboard'}">
+                <router-link :to="{ name: 'trips'}">
                     <img src="../assets/trips.svg" alt="trips icon">
                     Trips
                 </router-link>
