@@ -1,5 +1,5 @@
 <template>
-    <section class="sidebar">
+    <section class="sidebar" v-bind:class="{collapse: sidebarState === true}">
         <div class="logo">
             <img src="../assets/white-logo.png" alt="brium logo">
         </div>
@@ -7,55 +7,55 @@
             <li>
                 <router-link :to="{ name: 'dashboard'}">
                     <img src="../assets/dashboard.svg" alt="dashboard icon">
-                    Dashboard
+                    <div>Dashboard</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'trips'}">
                     <img src="../assets/trips.svg" alt="trips icon">
-                    Trips
+                    <div>Trips</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'drivers'}">
                     <img src="../assets/driver.svg" alt="drivers icon">
-                    Drivers
+                    <div>Drivers</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'passengers'}">
                     <img src="../assets/passenger.svg" alt="passengers icon">
-                    Passengers
+                    <div>Passengers</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'vehicles'}">
                     <img src="../assets/vehicle.svg" alt="vehicles icon">
-                    Vehicles
+                    <div>Vehicles</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'manual-dispatch'}">
                     <img src="../assets/manual-dispatch.svg" alt="manual dispatch icon">
-                    Manual Dispatch
+                    <div>Manual Dispatch</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'reports'}">
                     <img src="../assets/report.svg" alt="reports icon">
-                    Reports
+                    <div>Reports</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'price-management'}">
                     <img src="../assets/price.svg" alt="price management icon">
-                    Price Management
+                    <div>Price Management</div>
                 </router-link>
             </li>
             <li>
                 <router-link :to="{ name: 'settings'}">
                     <img src="../assets/settings-gears.svg" alt="settings icon">
-                    Settings
+                    <div>Settings</div>
                 </router-link>
             </li>
         </ul>
@@ -65,17 +65,26 @@
 <script>
 export default {
     name: 'sidebar',
-    props: {}
+    data: () => {
+        return {
+            showSideBar: false
+        }
+    },
+    computed: {
+        sidebarState () {
+            return this.$store.getters.SidebarState
+        }
+    }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .sidebar {
     background: var(--primary-color);
     width: 18%;
     height: 100vh;
     position: fixed;
+    transition: all .3s;
 }
 
 ul, li {
@@ -93,6 +102,7 @@ a {
 
     img {
         width: 33%;
+        transition: all .3s;
     }
 }
 
@@ -120,7 +130,26 @@ ul {
             img {
                 margin-right: 25px;
             }
+
+            div {
+                pointer-events: all;
+                opacity: 1;
+                transition: all .2s;
+            }
         }
+    }
+}
+
+.sidebar.collapse {
+    width: 6.5%;
+
+    .logo img {
+        width: 70%;
+    }
+
+    ul li div {
+        opacity: 0;
+        pointer-events: none;
     }
 }
 </style>
