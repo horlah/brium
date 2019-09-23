@@ -10,7 +10,7 @@ export default new Router({
         {
             path: '/',
             component: () => import('./views/App.vue'),
-            redirect: '/dashboard',
+            redirect: '/login',
             children: [
                 {
                     path: '/dashboard',
