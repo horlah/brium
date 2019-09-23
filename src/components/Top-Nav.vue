@@ -1,6 +1,6 @@
 <template>
     <header class="header">
-        <button>
+        <button @click="toggleSideBar">
             <img src="../assets/menu.svg" alt="menu icon">
         </button>
 
@@ -30,11 +30,15 @@ export default {
     name: 'top-nav',
     props: {
         msg: String
+    },
+    methods: {
+        toggleSideBar () {
+            this.$store.dispatch('SET_SIDEBAR_STATE', !this.$store.getters.SidebarState)
+        }
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 header {
     padding: 20px 30px 10px 20px;

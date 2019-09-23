@@ -1,9 +1,8 @@
 <template>
     <div class="app">
         <Sidebar />
-        <div>
+        <div v-bind:class="{'collapse-sidebar': sidebarState === true}">
             <TopNav />
-
             <router-view></router-view>
         </div>
     </div>
@@ -19,6 +18,11 @@ export default {
     components: {
         Sidebar,
         TopNav
+    },
+    computed: {
+        sidebarState () {
+            return this.$store.getters.SidebarState
+        }
     }
 }
 </script>
@@ -31,6 +35,10 @@ export default {
         width: 100%;
         background: rgba(237, 237, 237, 0.75);
         margin-left: 18%;
+
+        &.collapse-sidebar {
+            margin-left: 6.5%;
+        }
     }
 }
 </style>

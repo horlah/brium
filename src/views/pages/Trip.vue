@@ -1,8 +1,8 @@
 <template>
     <section class="trips">
         <div class="tabs">
-            <button class="tab active">Active</button>
-            <button class="tab">Upcoming</button>
+            <button class="tab" v-bind:class="{active: activeTab === 'active'}" @click="switchTabs('active')">Active</button>
+            <button class="tab" v-bind:class="{active: activeTab === 'upcoming'}" @click="switchTabs('upcoming')">Upcoming</button>
         </div>
 
         <div class="trips-search">
@@ -14,8 +14,72 @@
             </div>
         </div>
 
-        <div class="trips-detail">
+        <div class="trips-detail" v-show="activeTab === 'active'">
             <div class="trip">
+                <div class="status">
+                    <div class="status-icon">
+                        <img src="../../assets/refresh.svg" alt="direction icon">
+                    </div>
+                    <div>
+                        <div class="label">STATUS</div>
+                        <div class="status-title">PICKUP - 2MIN</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -79,7 +143,7 @@
                 </div>
             </div>
 
-            <div class="trip">
+            <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -143,7 +207,7 @@
                 </div>
             </div>
 
-            <div class="trip">
+            <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -207,7 +271,7 @@
                 </div>
             </div>
 
-            <div class="trip">
+            <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -271,7 +335,7 @@
                 </div>
             </div>
 
-            <div class="trip">
+            <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -334,15 +398,319 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="trips-detail" v-show="activeTab === 'upcoming'">
+            <div class="trip">
+                <div class="status">
+                    <div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
 
             <div class="trip">
                 <div class="status">
-                    <div class="status-icon">
-                        <img src="../../assets/directions.svg" alt="direction icon">
-                    </div>
                     <div>
-                        <div class="label">STATUS</div>
-                        <div class="status-title">REQUESTING</div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip">
+                <div class="status">
+                    <div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip">
+                <div class="status">
+                    <div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip">
+                <div class="status">
+                    <div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
+                    </div>
+                </div>
+
+                <div class="clients">
+                    <div class="client driver">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">DRIVER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                    <div class="client passenger">
+                        <div class="display-picture">
+                            <img src="../../assets/user.png" alt="driver display picture">
+                        </div>
+                        <div class="details">
+                            <div class="label">PASSENGER</div>
+                            <div>John Obinna</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timing">
+                    <div class="time start-time">
+                        <div class="label">START TIME</div>
+                        <div>9:05am</div>
+                    </div>
+                    <div class="time end-time">
+                        <div class="label">END TIME ESTIMATE</div>
+                        <div>9:30am <span class="label">(3 mins left)</span></div>
+                    </div>
+                </div>
+
+                <div class="location">
+                    <div class="trip-details">
+                        <div class="pickup">
+                            <div class="label">PICKUP</div>
+                            <div class="label-title">Adeleke Ade Road</div>
+                        </div>
+                        <div class="destination">
+                            <div class="label">DROP OFF</div>
+                            <div class="label-title">Presidential Hotel</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost">
+                    <div>
+                        <div class="label">ESTIMATED COST</div>
+                        <div class="price">N4,300</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip">
+                <div class="status">
+                    <div>
+                        <div class="label">DATE</div>
+                        <div class="status-title">29th, Jun 2017, 22:57</div>
                     </div>
                 </div>
 
@@ -417,7 +785,17 @@
 
 <script>
 export default {
-    name: 'trips'
+    name: 'trips',
+    data: () => {
+        return {
+            activeTab: 'active'
+        }
+    },
+    methods: {
+        switchTabs (activeTab) {
+            this.activeTab = activeTab
+        }
+    }
 }
 </script>
 
@@ -467,7 +845,7 @@ div {
 
 .trip {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     background: var(--white-color);
     border: 0.75px solid #E0E0E0;
@@ -477,14 +855,15 @@ div {
     padding: 20px 0;
     margin-top: 10px;
 
+    &.requesting {
+        border-left: 10px solid var(--primary-color);
+    }
+
     &:first-child {
         margin-top: 20px;
     }
 
     & > div {
-        &:first-child {
-            max-width: 80px;
-        }
         // border-right: 2px solid #F2F2F2;
     }
 }
@@ -493,7 +872,7 @@ div {
     & > div {
         &:first-child {
             &::before {
-                height: 32px;
+                height: 30px;
             }
         }
     }
