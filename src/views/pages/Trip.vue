@@ -911,30 +911,4 @@ div {
     margin-bottom: 15px;
 }
 
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-
-    & > div {
-        display: flex;
-        align-items: center;
-
-        div {
-            padding: 8px 11px;
-            margin: 0 8px;
-
-            &.active {
-                background: var(--secondary-color);
-                border-radius: 50px;
-                padding: 8px 13px;
-            }
-        }
-
-        img {
-            width: 3%;
-        }
-    }
-}
-
 </style>
