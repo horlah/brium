@@ -25,7 +25,20 @@ export default new Router({
                 {
                     path: '/drivers',
                     name: 'drivers',
-                    component: () => import('./views/pages/Drivers.vue')
+                    component: () => import('./views/pages/driver/Drivers.vue'),
+                    redirect: '/drivers/all-drivers',
+                    children: [
+                        {
+                            path: '/drivers/all-drivers',
+                            name: 'all-drivers',
+                            component: () => import('./views/pages/driver/All-Drivers.vue')
+                        },
+                        {
+                            path: '/drivers/driver',
+                            name: 'driver',
+                            component: () => import('./views/pages/driver/Driver.vue')
+                        }
+                    ]
                 },
                 {
                     path: '/manual-dispatch',
