@@ -69,6 +69,10 @@ header {
         .details {
             margin-right: 30px;
 
+            a {
+                color: var(--primary-color);
+            }
+
             p {
                 margin: 0;
                 font-size: .75rem;
