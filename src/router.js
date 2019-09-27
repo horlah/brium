@@ -48,7 +48,20 @@ export default new Router({
                 {
                     path: '/passengers',
                     name: 'passengers',
-                    component: () => import('./views/pages/Passengers.vue')
+                    component: () => import('./views/pages/passenger/Passengers.vue'),
+                    redirect: '/passengers/all-passengers',
+                    children: [
+                        {
+                            path: '/passengers/all-passengers',
+                            name: 'all-passengers',
+                            component: () => import('./views/pages/passenger/All-Passengers.vue')
+                        },
+                        {
+                            path: '/passengers/passenger',
+                            name: 'passenger',
+                            component: () => import('./views/pages/passenger/Passenger.vue')
+                        }
+                    ]
                 },
                 {
                     path: '/price-management',
