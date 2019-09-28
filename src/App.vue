@@ -185,14 +185,14 @@ button {
         align-items: center;
         background: var(--white-color);
         border: 0.75px solid #E0E0E0;
-        border-left: 10px solid var(--secondary-color);
+        border-left: 7px solid var(--secondary-color);
         box-sizing: border-box;
         border-radius: 3px;
         padding: 20px 0;
         margin-top: 10px;
 
         &.requesting {
-            border-left: 10px solid var(--primary-color);
+            border-left-color: var(--primary-color);
         }
 
         &:first-child {
@@ -266,5 +266,85 @@ button {
             }
         }
     }
+}
+
+.table {
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+
+        button {
+            background: linear-gradient(180deg, #14ACDB 0%, #1470DB 100%);
+            border-radius: 3px;
+            color: var(--white-color);
+            padding: 10px 70px;
+        }
+    }
+}
+
+.table-head {
+    display: flex;
+    text-align: center;
+    margin-top: 20px;
+    background: var(--secondary-color);
+    color: var(--white-color);
+    padding: 15px 0;
+    font-size: .9rem;
+
+    & > div {
+        width: 100%;
+    }
+}
+
+.table-item {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    border: 0.75px solid #E0E0E0;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: .8rem;
+    font-weight: bolder;
+    cursor: pointer;
+
+    &:not(:first-of-type) {
+        margin-top: 3px;
+    }
+
+    & > div {
+        width: 100%;
+        padding: 15px 0;
+        border-right: 1px solid #F2F2F2;
+    }
+
+    .name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 20%;
+            margin-right: 10px;
+        }
+    }
+
+    .status {
+        &.approved {
+            color: #07BE72;
+        }
+
+        &.processing {
+            color: #F81C1C;
+        }
+    }
+}
+
+.driver-dp-on-car {
+    position: absolute;
+    width: 20% !important;
+    bottom: 0;
+    right: 70px;
 }
 </style>

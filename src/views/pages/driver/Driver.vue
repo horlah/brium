@@ -16,7 +16,7 @@
             <div class="car-details">
                 <div class="car">
                     <img src="../../../assets/car.png" alt="car">
-                    <img src="../../../assets/user.png" alt="driver's display picture" class="driver-dp">
+                    <img src="../../../assets/user.png" alt="driver's display picture" class="driver-dp-on-car">
                 </div>
 
                 <div class="name">
@@ -411,13 +411,6 @@ $box-shadow: 3px 4px 4px rgba(197, 191, 191, 0.31);
 
         .car {
             position: relative;
-        }
-
-        .driver-dp {
-            position: absolute;
-            width: 20%;
-            bottom: 0;
-            right: 70px;
         }
 
         h4 {
