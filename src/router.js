@@ -81,7 +81,20 @@ export default new Router({
                 {
                     path: '/vehicles',
                     name: 'vehicles',
-                    component: () => import('./views/pages/Vehicles.vue')
+                    component: () => import('./views/pages/vehicle/Vehicles.vue'),
+                    redirect: '/vehicles/all-vehicles',
+                    children: [
+                        {
+                            path: '/vehicles/all-vehicles',
+                            name: 'all-vehicles',
+                            component: () => import('./views/pages/vehicle/All-Vehicles.vue')
+                        },
+                        {
+                            path: '/vehicles/vehicle',
+                            name: 'driver',
+                            component: () => import('./views/pages/vehicle/Vehicle.vue')
+                        }
+                    ]
                 }
             ]
         },
