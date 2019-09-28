@@ -1,22 +1,16 @@
 <template>
-    <div class="driver">
+    <div class="passenger">
         <div class="bread-crumbs">
             <div class="link">
-                <router-link :to="{ name: 'all-drivers'}">Drivers</router-link>
+                <router-link :to="{ name: 'all-passengers'}">Passengers</router-link>
             </div>
             <div class="link">John Papa</div>
         </div>
 
-        <section class="driver-details">
-            <div class="online-status">
-                <div class="indicator"></div>
-                <div>ONLINE</div>
-            </div>
-
-            <div class="car-details">
-                <div class="car">
-                    <img src="../../../assets/car.png" alt="car">
-                    <img src="../../../assets/user.png" alt="driver's display picture" class="driver-dp">
+        <section class="passenger-details">
+            <div class="user-details">
+                <div class="user">
+                    <img src="../../../assets/user.png" alt="passenger's display picture" class="user-dp">
                 </div>
 
                 <div class="name">
@@ -26,13 +20,13 @@
 
                 <div class="actions">
                     <button>LOCATE DRIVER</button>
-                    <button>SUSPEND DRIVER</button>
+                    <button>SUSPEND PASSENGER</button>
                 </div>
             </div>
 
             <div class="border"></div>
 
-            <div class="driver-section">
+            <div class="passenger-section">
                 <div class="line">
                     <div class="phone-number">
                         <div class="label">PHONE NUMBER</div>
@@ -73,11 +67,11 @@
                 </div>
                 <div class="line">
                     <div class="trips-driven">
-                        <div class="label">TRIPS DRIVING</div>
+                        <div class="label">PASSENGER TRIPS</div>
                         <div class="number big-font">23</div>
                     </div>
                     <div class="trips-driven">
-                        <div class="label">TRIPS DRIVING</div>
+                        <div class="label">RATINGS</div>
                         <div class="number big-font">4.6</div>
                     </div>
                     <div>
@@ -92,53 +86,6 @@
 
                 </div>
             </div>
-        </section>
-
-        <section class="bank-documents">
-            <section class="bank-details">
-                <h4>Bank Details</h4>
-                <div class="details">
-                    <div>
-                        <div class="label">Bank Account Number</div>
-                        <div>0222010772</div>
-                    </div>
-                    <div>
-                        <div class="label">Account Name</div>
-                        <div>TEJUMOLA DAVID OLUWATIMILEYIN</div>
-                    </div>
-                    <div>
-                        <div class="label">Bank Name</div>
-                        <div>GUARANTEE TRUST BANK</div>
-                    </div>
-                </div>
-            </section>
-            <section class="documents">
-                <h4>Documents</h4>
-                <div class="details">
-                    <div>
-                        <div class="label">Tint Permit</div>
-                        <div>
-                            <img src="../../../assets/drive-file.svg" alt="file icon">
-                            <span>Screenshot_20181023_shot.png</span>
-                            <div class="info">
-                                <div>008-1748-47684</div>
-                                <div>Expires :  5/6/2022</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="label">Driver’s Licence</div>
-                        <div>
-                            <img src="../../../assets/drive-file.svg" alt="file icon">
-                            <span>Screenshot_20181023_shot.png</span>
-                            <div class="info">
-                                <div>008-1748-47684</div>
-                                <div>Expires :  5/6/2022</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
         </section>
 
         <section class="trips">
@@ -374,19 +321,14 @@
 
 <script>
 export default {
-    name: 'driver',
-    methods: {
-        openDriver () {
-            this.$router.push('/driver')
-        }
-    }
+    name: 'passenger'
 }
 </script>
 
 <style lang="scss" scoped>
 $box-shadow: 3px 4px 4px rgba(197, 191, 191, 0.31);
 
-.driver-details {
+.passenger-details {
     width: calc(95% - 60px);
     margin: 30px auto;
     background: var(--white-color);
@@ -400,24 +342,13 @@ $box-shadow: 3px 4px 4px rgba(197, 191, 191, 0.31);
         border: 1px solid var(--border-color);
     }
 
-    .car-details {
+    .user-details {
         width: 30%;
         margin: 0 50px;
         text-align: center;
 
         img {
-            width: 50%;
-        }
-
-        .car {
-            position: relative;
-        }
-
-        .driver-dp {
-            position: absolute;
-            width: 20%;
-            bottom: 0;
-            right: 70px;
+            width: 30%;
         }
 
         h4 {
@@ -446,7 +377,7 @@ $box-shadow: 3px 4px 4px rgba(197, 191, 191, 0.31);
         }
     }
 
-    .driver-section {
+    .passenger-section {
         width: calc(70% - 50px);
         margin: 0 0 0 50px;
         display: flex;

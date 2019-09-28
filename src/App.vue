@@ -103,6 +103,7 @@ button {
     justify-content: center;
     margin-top: 30px;
     font-size: .8rem;
+    position: relative;
 
     & > div {
         display: flex;
@@ -122,6 +123,17 @@ button {
         img {
             width: 3%;
         }
+    }
+
+    button {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding: 10px 0;
+        background: linear-gradient(180deg, #14ACDB 0%, #1470DB 100%);
+        color: var(--white-color);
+        width: 170px;
     }
 }
 
@@ -233,6 +245,26 @@ button {
 
     .start-time {
         margin-bottom: 15px;
+    }
+}
+
+.bread-crumbs {
+    margin: 15px 0 0 30px;
+    display: flex;
+    color: var(--medium-color);
+    font-size: .8rem;
+
+    div {
+        &:nth-child(even) {
+            margin-left: 25px;
+            position: relative;
+
+            &::before {
+                content: '>';
+                left: -15px;
+                position: absolute;
+            }
+        }
     }
 }
 </style>
