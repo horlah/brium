@@ -25,7 +25,7 @@
             <button>See More</button>
         </section>
 
-        <section class="big-chart total-earning">
+        <section class="total-earning">
             <div class="header">
                 <div class="title">
                     <div class="small-text">Total</div>
@@ -246,6 +246,54 @@ export default {
         color: var(--white-color);
         padding: 10px 0;
         margin-left: 40px;
+    }
+}
+
+.total-earning {
+    background: var(--white-color);
+    width: calc(95% - 60px);
+    margin: 30px auto;
+    background: var(--white-color);
+    padding: 20px 30px 30px;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & > div {
+            &:last-child {
+                display: flex;
+                align-items: center;
+            }
+
+            & > button {
+                margin-left: 20px;
+
+                img {
+                    width: 80%;
+                }
+            }
+        }
+    }
+
+    .chart {
+        width: 100%;
+        height: 25vh;
+    }
+}
+
+.tabs {
+    display: flex;
+
+    .tab {
+        padding: 10px 5px;
+        margin: 10px;
+        font-size: .9rem;
+
+        &.active {
+            border-bottom: 2px solid var(--primary-color);
+        }
     }
 }
 
