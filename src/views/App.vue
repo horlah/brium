@@ -35,7 +35,7 @@ export default {
         width: 100%;
         background: rgba(237, 237, 237, 0.75);
         margin-left: 18%;
-        height: 100vh;
+        min-height: 100vh;
 
         &.collapse-sidebar {
             margin-left: 6.5%;

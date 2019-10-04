@@ -91,7 +91,7 @@ export default new Router({
                         },
                         {
                             path: '/vehicles/vehicle',
-                            name: 'driver',
+                            name: 'vehicle',
                             component: () => import('./views/pages/vehicle/Vehicle.vue')
                         }
                     ]
