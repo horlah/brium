@@ -322,7 +322,7 @@
 <script>
 export default {
     name: 'passenger'
-}
+};
 </script>
 
 <style lang="scss" scoped>

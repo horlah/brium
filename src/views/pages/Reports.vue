@@ -1312,14 +1312,14 @@ export default {
     data: () => {
         return {
             activeTab: 'promo'
-        }
+        };
     },
     methods: {
-        switchTabs (activeTab) {
-            this.activeTab = activeTab
+        switchTabs(activeTab) {
+            this.activeTab = activeTab;
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -376,11 +376,11 @@
 export default {
     name: 'driver',
     methods: {
-        openDriver () {
-            this.$router.push('/driver')
+        openDriver() {
+            this.$router.push('/driver');
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

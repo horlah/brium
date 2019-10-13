@@ -1,7 +1,7 @@
 <template>
     <section class="vehicles table">
         <div class="head">
-            <button>Add New Driver</button>
+            <button @click="showAddVehicleModal">Add New Vehicle</button>
 
             <div class="search">
                 <label for="search">
@@ -343,18 +343,72 @@
                 <img src="../../../assets/forward-arrow.svg" alt="next icon">
             </div>
         </div>
+
+        <template v-if="modalState === true">
+            <Modal>
+                <div class="add-vehicle">
+                    <div class="vehicle-image centralize">
+                        <div class="centralize">
+                            <img src="../../../assets/camera.png" alt="camera icon">
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="input">
+                            <input type="text" placeholder="Car brand" aria-label="car brand">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Car model" aria-label="car model">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Select Car Type" aria-label="Select Car Type">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Color" aria-label="Color">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Licence Plate Number" aria-label="SLicence Plate Number">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Next Schedule Maintainanace" aria-label="Next Schedule Maintainanace">
+                        </div>
+
+                        <div class="centralize column form-buttons">
+                            <button class="normal-button">ADD CAR</button>
+                            <button @click.prevent="closeModal" class="link-style">dismiss</button>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
+        </template>
     </section>
 </template>
 
 <script>
+import Modal from '@/components/Modal.vue';
+
 export default {
     name: 'all-drivers',
+    components: {
+        Modal
+    },
     methods: {
-        openVehicle () {
-            this.$router.push('/vehicles/vehicle')
+        openVehicle() {
+            this.$router.push('/vehicles/vehicle');
+        },
+        showAddVehicleModal() {
+            this.$store.dispatch('SET_MODAL_STATE', !this.$store.getters.ShowModalState);
+        },
+        closeModal() {
+            this.$store.dispatch('SET_MODAL_STATE', !this.$store.getters.ShowModalState);
+        }
+    },
+    computed: {
+        modalState() {
+            return this.$store.getters.ShowModalState;
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -399,6 +453,17 @@ export default {
         & > div:first-child {
             margin-bottom: 20px;
         }
+    }
+}
+
+.modal .vehicle-image {
+    margin-bottom: 20px;
+
+    & > div {
+        background: #E7E7E7;
+        border-radius: 50px;
+        width: 80px;
+        height: 80px;
     }
 }
 </style>

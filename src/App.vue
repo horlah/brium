@@ -33,6 +33,12 @@ a {
 button {
     background: transparent;
     border: none;
+
+    &.link-style {
+        color: var(--primary-color);
+        background: transparent;
+        text-decoration: underline var(--primary-color);
+    }
 }
 
 .trip-details {
@@ -398,6 +404,20 @@ button {
     .big-text {
         font-size: 1.5rem;
         font-weight: bolder;
+    }
+}
+
+.form-buttons {
+    margin-top: 20px;
+}
+
+.centralize {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.column {
+        flex-direction: column;
     }
 }
 </style>

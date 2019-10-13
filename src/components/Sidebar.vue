@@ -68,14 +68,14 @@ export default {
     data: () => {
         return {
             showSideBar: false
-        }
+        };
     },
     computed: {
-        sidebarState () {
-            return this.$store.getters.SidebarState
+        sidebarState() {
+            return this.$store.getters.SidebarState;
         }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">

@@ -32,11 +32,11 @@ export default {
         msg: String
     },
     methods: {
-        toggleSideBar () {
-            this.$store.dispatch('SET_SIDEBAR_STATE', !this.$store.getters.SidebarState)
+        toggleSideBar() {
+            this.$store.dispatch('SET_SIDEBAR_STATE', !this.$store.getters.SidebarState);
         }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">
