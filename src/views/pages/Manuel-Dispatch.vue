@@ -795,14 +795,14 @@ export default {
     data: () => {
         return {
             activeTab: 'active'
-        }
+        };
     },
     methods: {
-        switchTabs (activeTab) {
-            this.activeTab = activeTab
+        switchTabs(activeTab) {
+            this.activeTab = activeTab;
         }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">

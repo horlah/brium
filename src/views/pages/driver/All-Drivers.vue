@@ -129,11 +129,11 @@
 export default {
     name: 'all-drivers',
     methods: {
-        openDriver () {
-            this.$router.push('/drivers/driver')
+        openDriver() {
+            this.$router.push('/drivers/driver');
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

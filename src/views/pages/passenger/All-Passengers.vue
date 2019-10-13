@@ -129,11 +129,11 @@
 export default {
     name: 'all-passengers',
     methods: {
-        openPassenger () {
-            this.$router.push('/passengers/passenger')
+        openPassenger() {
+            this.$router.push('/passengers/passenger');
         }
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

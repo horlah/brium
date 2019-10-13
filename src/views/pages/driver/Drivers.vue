@@ -5,7 +5,7 @@
 <script>
 export default {
     name: 'drivers'
-}
+};
 </script>
 
 <style lang="scss" scoped>

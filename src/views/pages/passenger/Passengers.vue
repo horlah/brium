@@ -5,7 +5,7 @@
 <script>
 export default {
     name: 'passengers'
-}
+};
 </script>
 
 <style lang="scss" scoped>
