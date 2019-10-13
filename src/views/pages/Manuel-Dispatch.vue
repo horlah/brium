@@ -1,7 +1,7 @@
 <template>
     <section class="manuel-dispatch">
         <div class="add-manual-dispatch_container">
-            <button class="add-manual-dispatch">CREATE MANUAL DISPATCH</button>
+            <button class="add-manual-dispatch" @click="showCreateDispatchModal">CREATE MANUAL DISPATCH</button>
         </div>
 
         <div class="trips">
@@ -786,12 +786,53 @@
                 </div>
             </div>
         </div>
+
+        <template v-if="modalState === true">
+            <Modal>
+                <div class="add-dispatch">
+                    <div class="centralize column">
+                        <div class="add-icon">+</div>
+                        <h3>Manual Dispatch</h3>
+                    </div>
+
+                    <form>
+                        <div class="input">
+                            <input type="text" placeholder="Select Driver from Available drivers list" aria-label="Select Driver from Available drivers list">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Search Passengers Name" aria-label="Search Passengers Name">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Select Means of Payment" aria-label="Select Means of Payment">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Pickup Point" aria-label="Pickup Point">
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="Destination" aria-label="Destination">
+                        </div>
+
+                        <div class="centralize column form-buttons">
+                            <button class="normal-button">BOOK RIDE</button>
+                            <button @click.prevent="closeModal" class="link-style">dismiss</button>
+                        </div>
+                    </form>
+                </div>
+            </Modal>
+        </template>
     </section>
 </template>
 
 <script>
+import ModalMixin from '../../mixins/modal-mixun';
+import Modal from '@/components/Modal.vue';
+
 export default {
-    name: 'trips',
+    name: 'manual-dispatch',
+    components: {
+        Modal
+    },
+    mixins: [ModalMixin],
     data: () => {
         return {
             activeTab: 'active'
@@ -800,6 +841,14 @@ export default {
     methods: {
         switchTabs(activeTab) {
             this.activeTab = activeTab;
+        },
+        showCreateDispatchModal() {
+            this.$store.dispatch('SET_MODAL_STATE', !this.$store.getters.ShowModalState);
+        }
+    },
+    computed: {
+        modalState() {
+            return this.$store.getters.ShowModalState;
         }
     }
 };
@@ -818,5 +867,23 @@ export default {
     margin-top: 20px;
     padding: 10px 0;
     width: 200px;
+}
+
+.add-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border-radius: 50px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.add-dispatch {
+    h3 {
+        margin-bottom: 0;
+        color: var(--primary-color);
+        font-weight: bolder;
+    }
 }
 </style>

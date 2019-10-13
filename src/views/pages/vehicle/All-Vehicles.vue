@@ -367,7 +367,7 @@
                             <input type="text" placeholder="Color" aria-label="Color">
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="Licence Plate Number" aria-label="SLicence Plate Number">
+                            <input type="text" placeholder="Licence Plate Number" aria-label="Licence Plate Number">
                         </div>
                         <div class="input">
                             <input type="text" placeholder="Next Schedule Maintainanace" aria-label="Next Schedule Maintainanace">
@@ -386,9 +386,11 @@
 
 <script>
 import Modal from '@/components/Modal.vue';
+import ModalMixin from '../../../mixins/modal-mixun';
 
 export default {
     name: 'all-drivers',
+    mixins: [ModalMixin],
     components: {
         Modal
     },
@@ -397,9 +399,6 @@ export default {
             this.$router.push('/vehicles/vehicle');
         },
         showAddVehicleModal() {
-            this.$store.dispatch('SET_MODAL_STATE', !this.$store.getters.ShowModalState);
-        },
-        closeModal() {
             this.$store.dispatch('SET_MODAL_STATE', !this.$store.getters.ShowModalState);
         }
     },
