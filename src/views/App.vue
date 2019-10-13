@@ -9,9 +9,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Sidebar from '@/components/Sidebar.vue'
-import TopNav from '@/components/Top-Nav.vue'
+import Sidebar from '@/components/Sidebar.vue';
+import TopNav from '@/components/Top-Nav.vue';
 
 export default {
     name: 'app',
@@ -20,11 +19,11 @@ export default {
         TopNav
     },
     computed: {
-        sidebarState () {
-            return this.$store.getters.SidebarState
+        sidebarState() {
+            return this.$store.getters.SidebarState;
         }
     }
-}
+};
 </script>
 
 <style scoped lang="scss">
