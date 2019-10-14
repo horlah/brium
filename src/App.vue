@@ -420,4 +420,8 @@ button {
         flex-direction: column;
     }
 }
+
+.primary-color {
+    color: var(--primary-color);
+}
 </style>

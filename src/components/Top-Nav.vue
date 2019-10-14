@@ -5,11 +5,59 @@
         </button>
 
         <div>
-            <button>
+            <button @click="setActiveDropDown('messages')">
                 <img src="../assets/mail.svg" alt="mail icon">
+                <span class="count">2</span>
+                <DropMenu v-show="activeDropDown === 'messages'">
+                    <template v-slot:title>
+                        <h4>Messages</h4>
+                    </template>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                </DropMenu>
             </button>
-            <button>
+            <button @click="setActiveDropDown('emergency')">
+                <span class="count">2</span>
                 <img src="../assets/siren.svg" alt="siren icon">
+                <DropMenu v-show="activeDropDown === 'emergency'">
+                    <template v-slot:title>
+                        <h4>EMERGENCY</h4>
+                    </template>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                    <li>
+                        <div>
+                            Ekpoto Liberty <span class="label">(EPE-2014-LG)</span>
+                        </div>
+                        <div class="label primary-color">see on map</div>
+                    </li>
+                </DropMenu>
             </button>
 
             <div class="line"></div>
@@ -26,14 +74,27 @@
 </template>
 
 <script>
+import DropMenu from './Drop-Menu';
+
 export default {
     name: 'top-nav',
+    components: {
+        DropMenu
+    },
+    data: () => {
+        return {
+            activeDropDown: ''
+        };
+    },
     props: {
         msg: String
     },
     methods: {
         toggleSideBar() {
             this.$store.dispatch('SET_SIDEBAR_STATE', !this.$store.getters.SidebarState);
+        },
+        setActiveDropDown(activeDropDown) {
+            this.activeDropDown = this.activeDropDown === activeDropDown ? '' : activeDropDown;
         }
     }
 };
@@ -104,5 +165,17 @@ header {
 button {
     border: none;
     background: transparent;
+    position: relative;
+}
+
+.count {
+    position: absolute;
+    background: red;
+    color: var(--white-color);
+    padding: 3px 6px;
+    border-radius: 50px;
+    font-size: .6rem;
+    right: 6px;
+    top: -6px;
 }
 </style>
