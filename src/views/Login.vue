@@ -39,12 +39,12 @@
 export default {
     name: 'home',
     methods: {
-        goToDashboard (event) {
-            event.preventDefault()
-            this.$router.push('/dashboard')
+        goToDashboard(event) {
+            event.preventDefault();
+            this.$router.push('/dashboard');
         }
     }
-}
+};
 
 </script>
 
