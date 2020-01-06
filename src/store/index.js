@@ -7,7 +7,11 @@ export default new Vuex.Store({
     state: {
         collapseSideBar: false,
         activeModal: '',
-        showModal: false
+        showModal: false,
+        user: {
+            isUserLoggedIn: false,
+            data: null
+        }
     },
     getters: {
         SidebarState: state => {
@@ -18,6 +22,12 @@ export default new Vuex.Store({
         },
         ShowModalState: state => {
             return state.showModal;
+        },
+        GetUserData: state => {
+            return state.user;
+        },
+        GetUserLoginState: state => {
+            return state.user.isUserLoggedIn;
         }
     },
     mutations: {
@@ -29,6 +39,12 @@ export default new Vuex.Store({
         },
         TOGGLE_MODAL_STATE: (state, payload) => {
             state.showModal = payload;
+        },
+        UPDATE_LOGIN_STATE: (state, payload) => {
+            state.user.isUserLoggedIn = payload;
+        },
+        UPDATE_USER_DATA: (state, payload) => {
+            state.user.data = payload;
         }
     },
     actions: {
@@ -40,6 +56,17 @@ export default new Vuex.Store({
         },
         SET_MODAL_STATE: (context, payload) => {
             context.commit('TOGGLE_MODAL_STATE', payload);
+        },
+        SET_USER_DATA: (context, payload) => {
+            context.commit('UPDATE_LOGIN_STATE', payload !== null);
+            if (payload) {
+                context.commit('UPDATE_USER_DATA', {
+                    displayName: payload.displayName,
+                    email: payload.email
+                });
+            } else {
+                context.commit('UPDATE_USER_DATA', null);
+            }
         }
     }
 });

@@ -197,8 +197,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import * as firebase from 'firebase';
+// import store from '../../store';
+
 export default {
-    name: 'dashboard'
+    name: 'dashboard',
+    computed: {
+        // map `this.user` to `this.$store.getters.user`
+        ...mapGetters({
+            user: 'GetUserData'
+        })
+    },
+    beforeRouteEnter: async(to, from, next) => {
+        const userLoggedIn = await firebase.auth().currentUser;
+        if (!userLoggedIn) next('/login');
+        else next();
+    }
 };
 </script>
 
