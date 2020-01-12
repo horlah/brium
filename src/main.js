@@ -20,6 +20,7 @@ const configOptions = {
 firebase.initializeApp(configOptions);
 
 firebase.auth().onAuthStateChanged(user => {
+    user.getIdToken().then((res) => Store.commit('SET_USER_TOKEN', res));
     Store.dispatch('SET_USER_DATA', user);
 });
 

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { apiUrl, environment } from '../environment/environment';
+import Store from '../store';
 
 const env = environment === 'production' ? 'Production' : 'Staging';
 
 const HTTP_AUTH = axios.create({
     baseURL: apiUrl,
     headers: {
-        Authorization: 'Bearer {token}',
+        FIREBASE_AUTH_TOKEN: Store.state.userToken,
         ENVIRONMENT: env
     }
 });
