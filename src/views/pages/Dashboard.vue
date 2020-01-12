@@ -1,9 +1,15 @@
 <template>
     <div class="dashboard">
         <section class="total">
-            <div>
+            <div class="has-drop-down">
                 <div class="small-text">Total</div>
-                <div class="big-text">For Today</div>
+                <div class="big-text">For {{totalSectionValue}}</div>
+                <div class="drop-down">
+                    <li><button @click="updateTotalSectionData('Today')">Today</button></li>
+                    <li><button @click="updateTotalSectionData('This Week')">This Week</button></li>
+                    <li><button @click="updateTotalSectionData('This Month')">This Month</button></li>
+                    <li><button @click="updateTotalSectionData('This Year')">This Year</button></li>
+                </div>
             </div>
             <div>
                 <div class="big-text">N1,140,574</div>
@@ -22,7 +28,7 @@
                 <div class="small-text">Rides Completed</div>
             </div>
 
-            <button>See More</button>
+            <button class="see-more">See More</button>
         </section>
 
         <section class="big-chart total-earning">
@@ -203,16 +209,44 @@ import * as firebase from 'firebase';
 
 export default {
     name: 'dashboard',
+    data: () => {
+        return {
+            totalSectionValue: 'Today'
+        };
+    },
+    methods: {
+        updateTotalSectionData(activeStatus) {
+            this.totalSectionValue = activeStatus;
+        }
+    },
     computed: {
-        // map `this.user` to `this.$store.getters.user`
         ...mapGetters({
             user: 'GetUserData'
         })
     },
+    mounted: () => {
+        // var myHeaders = new Headers();
+        // myHeaders.append('FIREBASE_AUTH_TOKEN', 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjRhOWEzMGI5ZThkYTMxNjY2YTY3NTRkZWZlZDQxNzQzZjJlN2FlZWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnJpdW1hcHAiLCJhdWQiOiJicml1bWFwcCIsImF1dGhfdGltZSI6MTU1MDg0MjkyOCwidXNlcl9pZCI6IjFVUXIxN1g0dHdlQzVYMEVYQ200dEQ2eG9LMDMiLCJzdWIiOiIxVVFyMTdYNHR3ZUM1WDBFWENtNHRENnhvSzAzIiwiaWF0IjoxNTc0NzYxNTk2LCJleHAiOjE1NzQ3NjUxOTYsImVtYWlsIjoiZWtlb2xlcmUub2xhaWRlQGJyaXVtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJla2VvbGVyZS5vbGFpZGVAYnJpdW0uY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.YiFPykYDyDt0RLtpg71_wLqUN2Fhm_HvKDkKoPiKVKf185JrYF-DcfSzz4W0xWfrjsd3Q8R5_P1ggYPMtUaEGAegx1HgRVftb-PMauTbrNZ88x2p7cnIc8DCiVhR1xQz8U5Z-qHDvJQaMgNuza0BjFWPvFu0r9h7a3DtHNuOn36Y-kTGyEzu6MOGB0C0SyALYkQ5QboxZPwP70z_kGG42Fn_hkYjlhczVPAf5WI76A3z6YMglKqA7SdjYXjAnE5m7APRpWDd74chCmKccCH5oRb3uR8otxshBxXTxSupxlSrctf0KTVvvAigIDePw5TzY6d_r7f60QBDlzYwra88uQ');
+        // myHeaders.append('Content-Type', 'application/json');
+        // myHeaders.append('ENVIRONMENT', 'Staging');
+
+        // var requestOptions = {
+        //     method: 'GET',
+        //     headers: myHeaders,
+        //     redirect: 'follow'
+        // };
+
+        // fetch('https://us-central1-briumapp.cloudfunctions.net/driverMonthlyActivity?activityDate=2019-11-18', requestOptions)
+        //     .then(response => response.text())
+        //     .then(result => console.log(result))
+        //     .catch(error => console.log('error', error));
+    },
     beforeRouteEnter: async(to, from, next) => {
-        const userLoggedIn = await firebase.auth().currentUser;
-        if (!userLoggedIn) next('/login');
-        else next();
+        firebase.auth().onAuthStateChanged(user => {
+            console.log(user);
+            if (!user) next('/login');
+            else next();
+        });
     }
 };
 </script>
@@ -240,6 +274,7 @@ export default {
 
     & > div {
         width: 40%;
+        position: relative;
 
         &:not(:first-child) {
             text-align: center;
@@ -253,7 +288,36 @@ export default {
         }
     }
 
-    button {
+    .drop-down {
+        box-shadow: 0px 4px 4px rgba(197, 191, 191, 0.16);
+        background: var(--white-color);
+        position: absolute;
+        width: 100%;
+        left: -30px;
+
+        li {
+            list-style: none;
+            margin-top: 10px;
+            transition: all .5s;
+
+            button {
+                font-size: inherit;
+                width: 100%;
+                text-align: left;
+                padding: 10px 0 10px 30px;
+            }
+
+            &:hover {
+                background: #eee;
+            }
+
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    button.see-more {
         width: 200px;
         background: #222222;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.09);
@@ -261,6 +325,18 @@ export default {
         color: var(--white-color);
         padding: 10px 0;
         margin-left: 40px;
+    }
+}
+
+.has-drop-down {
+    .drop-down {
+        display: none;
+    }
+
+    &:hover {
+       .drop-down {
+            display: block;
+        }
     }
 }
 
