@@ -224,23 +224,7 @@ export default {
             user: 'GetUserData'
         })
     },
-    mounted: () => {
-        // var myHeaders = new Headers();
-        // myHeaders.append('FIREBASE_AUTH_TOKEN', 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjRhOWEzMGI5ZThkYTMxNjY2YTY3NTRkZWZlZDQxNzQzZjJlN2FlZWEiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYnJpdW1hcHAiLCJhdWQiOiJicml1bWFwcCIsImF1dGhfdGltZSI6MTU1MDg0MjkyOCwidXNlcl9pZCI6IjFVUXIxN1g0dHdlQzVYMEVYQ200dEQ2eG9LMDMiLCJzdWIiOiIxVVFyMTdYNHR3ZUM1WDBFWENtNHRENnhvSzAzIiwiaWF0IjoxNTc0NzYxNTk2LCJleHAiOjE1NzQ3NjUxOTYsImVtYWlsIjoiZWtlb2xlcmUub2xhaWRlQGJyaXVtLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJla2VvbGVyZS5vbGFpZGVAYnJpdW0uY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.YiFPykYDyDt0RLtpg71_wLqUN2Fhm_HvKDkKoPiKVKf185JrYF-DcfSzz4W0xWfrjsd3Q8R5_P1ggYPMtUaEGAegx1HgRVftb-PMauTbrNZ88x2p7cnIc8DCiVhR1xQz8U5Z-qHDvJQaMgNuza0BjFWPvFu0r9h7a3DtHNuOn36Y-kTGyEzu6MOGB0C0SyALYkQ5QboxZPwP70z_kGG42Fn_hkYjlhczVPAf5WI76A3z6YMglKqA7SdjYXjAnE5m7APRpWDd74chCmKccCH5oRb3uR8otxshBxXTxSupxlSrctf0KTVvvAigIDePw5TzY6d_r7f60QBDlzYwra88uQ');
-        // myHeaders.append('Content-Type', 'application/json');
-        // myHeaders.append('ENVIRONMENT', 'Staging');
-
-        // var requestOptions = {
-        //     method: 'GET',
-        //     headers: myHeaders,
-        //     redirect: 'follow'
-        // };
-
-        // fetch('https://us-central1-briumapp.cloudfunctions.net/driverMonthlyActivity?activityDate=2019-11-18', requestOptions)
-        //     .then(response => response.text())
-        //     .then(result => console.log(result))
-        //     .catch(error => console.log('error', error));
-    },
+    mounted: () => {},
     beforeRouteEnter: async(to, from, next) => {
         firebase.auth().onAuthStateChanged(user => {
             console.log(user);
