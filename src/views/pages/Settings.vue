@@ -47,85 +47,121 @@
             </div>
 
             <div class="permissions" v-show="activeTab === 'permissions'">
-                <div class="inputs">
-                    <div class="input">
-                        <label for="dashboard">Dashboard</label>
-                        <select name="dashboard" id="dashboard">
-                            <option value="Enabled" disabled selected>Enabled</option>
-                        </select>
+                <form v-on:submit.prevent="requestPermission">
+                    <div>
+                        <div class="inputs">
+                            <div class="input">
+                                <label for="permissionName">Permission Name</label>
+                                <input type="text" v-model="permission.name" id="permissionName" name="permission name" required>
+                            </div>
+
+                            <div class="input">
+                                <label for="admin">Admin</label>
+                                <input type="checkbox" v-model="permission.admin" id="admin" name="admin">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="dashboard">Dashboard</label>
+                                <input type="checkbox" v-model="permission.dashboard" id="dashboard" name="dashboard">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="trips">Trips</label>
+                                <input type="checkbox" v-model="permission.trips" id="trips" name="trips">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="drivers">Drivers</label>
+                                <input type="checkbox" v-model="permission.drivers" id="drivers" name="drivers">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="passengers">Passengers</label>
+                                <input type="checkbox" v-model="permission.passengers" id="passengers" name="passengers">
+                            </div>
+
+                            <hr>
+                        </div>
+
+                        <div class="inputs">
+                            <div class="input">
+                                <label for="vehicles">Vehicles</label>
+                                <input type="checkbox" v-model="permission.vehicles" id="vehicles" name="vehicles">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="reports">Reports</label>
+                                <input type="checkbox" v-model="permission.reports" id="reports" name="reports">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="manualDispatch">Manual Dispatch</label>
+                                <input type="checkbox" v-model="permission.manualDispatch" id="manualDispatch" name="manual Dispatch">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="transaction">Transaction</label>
+                                <input type="checkbox" v-model="permission.transaction" id="transaction" name="transaction">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="priceManagement">Price Management</label>
+                                <input type="checkbox" v-model="permission.priceManagement" id="priceManagement" name="priceManagement">
+                            </div>
+
+                            <hr>
+
+                            <div class="input">
+                                <label for="settings">Settings</label>
+                                <input type="checkbox" v-model="permission.settings" id="settings" name="settings">
+                            </div>
+
+                            <hr>
+                        </div>
                     </div>
 
-                    <div class="input">
-                        <label for="fullName">Trips</label>
-                        <input type="text" id="fullName" name="full name">
+                    <div class="button">
+                        <button>{{ setLoader('REQUEST A PERMISSION') }}</button>
                     </div>
-
-                    <div class="input">
-                        <label for="email">Drivers</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Passengers</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Vehicles</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Reports</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-                </div>
-
-                <div class="inputs">
-                    <div class="input">
-                        <label for="fullName">Manual Dispatch</label>
-                        <input type="text" id="fullName" name="full name">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Transaction</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Price Management</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-
-                    <div class="input">
-                        <label for="email">Settings</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-                </div>
-
-                <button>REQUEST A PERMISSION</button>
+                </form>
             </div>
 
             <div class="promo" v-show="activeTab === 'promo'">
                 <div class="inputs">
                     <div class="input">
-                        <label for="fullName">Event/Campaign Name</label>
-                        <input type="text" id="fullName" name="full name">
+                        <label for="EventCampaignName">Event/Campaign Name</label>
+                        <input type="text" id="EventCampaignName" name="Event/Campaign Name">
                     </div>
 
                     <div class="input">
-                        <label for="email">Number of users</label>
-                        <input type="email" id="email" name="email">
+                        <label for="numberOfUsers">Number of users</label>
+                        <input type="number" id="numberOfUsers" name="number of users">
                     </div>
 
                     <div class="input">
-                        <label for="email">Expiry Date</label>
-                        <input type="email" id="email" name="email">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="date" id="expiryDate" name="expiry date">
                     </div>
 
                     <div class="input">
-                        <label for="email">Number of Rides</label>
-                        <input type="email" id="email" name="email">
+                        <label for="numberOfRides">Number of Rides</label>
+                        <input type="number" id="numberOfRides" name="number of rides">
                     </div>
 
                     <button>REQUEST A PERMISSION</button>
@@ -136,12 +172,12 @@
                 <div class="inputs">
                     <div class="input">
                         <label for="fullName">First Name</label>
-                        <input type="text" id="fullName" name="full name">
+                        <input type="text" id="firstName" name="first name">
                     </div>
 
                     <div class="input">
-                        <label for="email">Last Name</label>
-                        <input type="email" id="email" name="email">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="last name">
                     </div>
 
                     <div class="input">
@@ -150,8 +186,8 @@
                     </div>
 
                     <div class="input">
-                        <label for="email">Assign Modules</label>
-                        <input type="email" id="email" name="email">
+                        <label for="assignModules">Assign Modules</label>
+                        <input type="text" id="assignModules" name="assign modules">
                     </div>
 
                     <button>INVITE</button>
@@ -162,15 +198,56 @@
 </template>
 
 <script>
+import { HTTP_AUTH } from '../../services/http';
 export default {
     data: () => {
         return {
-            activeTab: 'promo'
+            activeTab: 'permissions',
+            permission: {
+                name: '',
+                admin: false,
+                dahsboard: false,
+                trips: false,
+                drivers: false,
+                passengers: false,
+                vehicles: false,
+                reports: false,
+                manualDispatch: false,
+                transaction: false,
+                priceManagement: false,
+                settings: false
+            }
         };
     },
     methods: {
         switchTabs(activeTab) {
             this.activeTab = activeTab;
+        },
+        requestPermission() {
+            this.setLoader(false);
+            HTTP_AUTH.post('/addAdminRole', this.permission)
+                .then((response) => {
+                    alert(`New ${this.permission.name} Permission has been created`);
+                    this.permission = {
+                        name: '',
+                        admin: false,
+                        dahsboard: false,
+                        trips: false,
+                        drivers: false,
+                        passengers: false,
+                        vehicles: false,
+                        reports: false,
+                        manualDispatch: false,
+                        transaction: false,
+                        priceManagement: false,
+                        settings: false
+                    };
+                    this.setLoader('REQUEST A PERMISSION');
+                })
+                .catch((error) => console.log(error));
+        },
+        setLoader(buttonText) {
+            return buttonText || '...';
         }
     }
 };
@@ -264,17 +341,45 @@ export default {
 }
 
 .permissions {
-    display: flex;
-    position: relative;
-
-    div {
+    form > div{
+        display: flex;
+        position: relative;
+        flex-wrap: wrap;
         width: 100%;
+
+        div {
+            width: 50%;
+        }
     }
 
-    button {
-        position: absolute;
-        bottom: 70px;
-        right: 100px;
+    .button {
+        text-align: center;
+        width: 100%;
+        position: relative;
+        margin-top: 25px;
+
+        button {
+            position: absolute;
+            left: 200px;
+        }
+    }
+
+    input[type= checkbox] {
+        margin-left: 20%;
+    }
+
+    input[type= text] {
+        width: 80%;
+    }
+
+    hr {
+        border: 1px solid #eee;
+        margin-left: -150px;
+        width: 76%;
+    }
+
+    label {
+        margin-top: 4px;
     }
 }
 

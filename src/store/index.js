@@ -11,7 +11,8 @@ export default new Vuex.Store({
         user: {
             isUserLoggedIn: false,
             data: null
-        }
+        },
+        userToken: ''
     },
     getters: {
         SidebarState: state => {
@@ -28,6 +29,9 @@ export default new Vuex.Store({
         },
         GetUserLoginState: state => {
             return state.user.isUserLoggedIn;
+        },
+        GetUserToken: state => {
+            return state.userToken;
         }
     },
     mutations: {
@@ -45,6 +49,9 @@ export default new Vuex.Store({
         },
         UPDATE_USER_DATA: (state, payload) => {
             state.user.data = payload;
+        },
+        SET_USER_TOKEN: (state, payload) => {
+            state.userToken = payload;
         }
     },
     actions: {

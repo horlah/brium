@@ -1,9 +1,15 @@
 <template>
     <div class="dashboard">
         <section class="total">
-            <div>
+            <div class="has-drop-down">
                 <div class="small-text">Total</div>
-                <div class="big-text">For Today</div>
+                <div class="big-text">For {{totalSectionValue}}</div>
+                <div class="drop-down">
+                    <li><button @click="updateTotalSectionData('Today')">Today</button></li>
+                    <li><button @click="updateTotalSectionData('This Week')">This Week</button></li>
+                    <li><button @click="updateTotalSectionData('This Month')">This Month</button></li>
+                    <li><button @click="updateTotalSectionData('This Year')">This Year</button></li>
+                </div>
             </div>
             <div>
                 <div class="big-text">N1,140,574</div>
@@ -22,7 +28,7 @@
                 <div class="small-text">Rides Completed</div>
             </div>
 
-            <button>See More</button>
+            <button class="see-more">See More</button>
         </section>
 
         <section class="big-chart total-earning">
@@ -203,16 +209,28 @@ import * as firebase from 'firebase';
 
 export default {
     name: 'dashboard',
+    data: () => {
+        return {
+            totalSectionValue: 'Today'
+        };
+    },
+    methods: {
+        updateTotalSectionData(activeStatus) {
+            this.totalSectionValue = activeStatus;
+        }
+    },
     computed: {
-        // map `this.user` to `this.$store.getters.user`
         ...mapGetters({
             user: 'GetUserData'
         })
     },
+    mounted: () => {},
     beforeRouteEnter: async(to, from, next) => {
-        const userLoggedIn = await firebase.auth().currentUser;
-        if (!userLoggedIn) next('/login');
-        else next();
+        firebase.auth().onAuthStateChanged(user => {
+            console.log(user);
+            if (!user) next('/login');
+            else next();
+        });
     }
 };
 </script>
@@ -240,6 +258,7 @@ export default {
 
     & > div {
         width: 40%;
+        position: relative;
 
         &:not(:first-child) {
             text-align: center;
@@ -253,7 +272,36 @@ export default {
         }
     }
 
-    button {
+    .drop-down {
+        box-shadow: 0px 4px 4px rgba(197, 191, 191, 0.16);
+        background: var(--white-color);
+        position: absolute;
+        width: 100%;
+        left: -30px;
+
+        li {
+            list-style: none;
+            margin-top: 10px;
+            transition: all .5s;
+
+            button {
+                font-size: inherit;
+                width: 100%;
+                text-align: left;
+                padding: 10px 0 10px 30px;
+            }
+
+            &:hover {
+                background: #eee;
+            }
+
+            &:last-child {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    button.see-more {
         width: 200px;
         background: #222222;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.09);
@@ -261,6 +309,18 @@ export default {
         color: var(--white-color);
         padding: 10px 0;
         margin-left: 40px;
+    }
+}
+
+.has-drop-down {
+    .drop-down {
+        display: none;
+    }
+
+    &:hover {
+       .drop-down {
+            display: block;
+        }
     }
 }
 
