@@ -184,8 +184,8 @@
                         </div>
 
                         <div class="input">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" v-model="adminUser.email" name="email">
+                            <label for="newAdminEmail">Email Address</label>
+                            <input type="email" id="newAdminEmail" v-model="adminUser.email" name="email">
                         </div>
 
                         <div class="input">
@@ -200,18 +200,13 @@
                 </div>
             </div>
         </div>
-        <Loader v-if="showLoader" />
     </section>
 </template>
 
 <script>
 import { HTTP_AUTH } from '../../services/http';
-import Loader from '@/components/Loader.vue';
 
 export default {
-    components: {
-        Loader
-    },
     data: () => {
         return {
             activeTab: 'permissions',
@@ -242,8 +237,7 @@ export default {
                 email: '',
                 password: 'secret',
                 roleId: ''
-            },
-            showLoader: false
+            }
         };
     },
     methods: {
@@ -253,37 +247,37 @@ export default {
             if (this.activeTab === 'invite-admin') this.getRoles();
         },
         async getRoles() {
-            this.showLoader = true;
+            this.$store.dispatch('SET_LOADER_STATE', true);
 
             try {
                 const response = await HTTP_AUTH.get('/fetcAdminRoles');
                 this.roles = response.data.roles;
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             } catch (error) {
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             }
         },
         async requestPermission() {
-            this.showLoader = true;
+            this.$store.dispatch('SET_LOADER_STATE', true);
 
             try {
                 const response = await HTTP_AUTH.post('/addAdminRole', this.permission);
                 alert(`New ${this.permission.name} Permission has been created`);
                 this.resetPermissions();
                 this.roles = response.data.roles;
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             } catch (error) {
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             }
         },
         async inviteUser() {
-            this.showLoader = true;
+            this.$store.dispatch('SET_LOADER_STATE', true);
 
             try {
                 await HTTP_AUTH.post('/addAdminUser', this.adminUser);
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             } catch (error) {
-                this.showLoader = false;
+                this.$store.dispatch('SET_LOADER_STATE', false);
             }
         },
         setLoader(buttonText) {

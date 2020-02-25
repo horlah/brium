@@ -26,7 +26,7 @@ export default new Vuex.Store({
             return state.showModal;
         },
         ShowLoaderState: state => {
-            return state.showModal;
+            return state.showLoder;
         },
         GetUserData: state => {
             return state.user;

@@ -28,19 +28,14 @@
 
             </div>
         </main>
-        <Loader v-if="showLoader" />
     </div>
 </template>
 
 <script>
 import * as firebase from 'firebase';
-import Loader from '@/components/Loader.vue';
 
 export default {
     name: 'home',
-    components: {
-        Loader
-    },
     data: () => {
         return {
             email: '',
@@ -50,14 +45,14 @@ export default {
     },
     methods: {
         async login() {
-            this.showLoader = true;
+            this.$store.dispatch('SET_LOADER_STATE', true);
             firebase.auth().signInWithEmailAndPassword(this.email, this.password)
                 .then((res) => {
                     this.$router.push('/dashboard');
-                    this.showLoader = false;
+                    this.$store.dispatch('SET_LOADER_STATE', false);
                 })
                 .catch(() => {
-                    this.showLoader = false;
+                    this.$store.dispatch('SET_LOADER_STATE', false);
                 });
         }
     }
