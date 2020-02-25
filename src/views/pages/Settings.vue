@@ -167,41 +167,51 @@
                     <button>REQUEST A PERMISSION</button>
                 </div>
                 </form>
-            
+
             </div>
 
             <div class="promo invite-admin" v-show="activeTab === 'invite-admin'">
                 <div class="inputs">
-                    <div class="input">
-                        <label for="fullName">First Name</label>
-                        <input type="text" id="firstName" name="first name">
-                    </div>
+                    <form v-on:submit.prevent="inviteUser">
+                        <div class="input">
+                            <label for="fullName">First Name</label>
+                            <input type="text" id="firstName" v-model="adminUser.firstName" name="first name">
+                        </div>
 
-                    <div class="input">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="last name">
-                    </div>
+                        <div class="input">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" v-model="adminUser.lastName" name="last name">
+                        </div>
 
-                    <div class="input">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email">
-                    </div>
+                        <div class="input">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" v-model="adminUser.email" name="email">
+                        </div>
 
-                    <div class="input">
-                        <label for="assignModules">Assign Modules</label>
-                        <input type="text" id="assignModules" name="assign modules">
-                    </div>
+                        <div class="input">
+                            <label for="assignModules">Assign Modules</label>
+                            <select name="role" id="role" v-model="adminUser.roleId">
+                                <option :value="role.id" v-for="(role, index) in roles" :key="index">{{ role.name }}</option>
+                            </select>
+                        </div>
 
-                    <button>INVITE</button>
+                        <button>INVITE</button>
+                    </form>
                 </div>
             </div>
         </div>
+        <Loader v-if="showLoader" />
     </section>
 </template>
 
 <script>
 import { HTTP_AUTH } from '../../services/http';
+import Loader from '@/components/Loader.vue';
+
 export default {
+    components: {
+        Loader
+    },
     data: () => {
         return {
             activeTab: 'permissions',
@@ -219,45 +229,67 @@ export default {
                 priceManagement: false,
                 settings: false
             },
-            Promo:  {
+            Promo: {
                 campaignName: '',
                 numOfUsers: '',
                 expiryDate: '',
-                 numberOfRides: '',
-            }
+                numberOfRides: ''
+            },
+            roles: [],
+            adminUser: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: 'secret',
+                roleId: ''
+            },
+            showLoader: false
         };
     },
     methods: {
         switchTabs(activeTab) {
             this.activeTab = activeTab;
+
+            if (this.activeTab === 'invite-admin') this.getRoles();
         },
-        requestPermission() {
-            this.setLoader(false);
-            HTTP_AUTH.post('/addAdminRole', this.permission)
-                .then((response) => {
-                    alert(`New ${this.permission.name} Permission has been created`);
-                    this.permission = {
-                        name: '',
-                        admin: false,
-                        dahsboard: false,
-                        trips: false,
-                        drivers: false,
-                        passengers: false,
-                        vehicles: false,
-                        reports: false,
-                        manualDispatch: false,
-                        transaction: false,
-                        priceManagement: false,
-                        settings: false
-                    };
-                    this.setLoader('REQUEST A PERMISSION');
-                })
-                .catch((error) => console.log(error));
+        async getRoles() {
+            this.showLoader = true;
+
+            try {
+                const response = await HTTP_AUTH.get('/fetcAdminRoles');
+                this.roles = response.data.roles;
+                this.showLoader = false;
+            } catch (error) {
+                this.showLoader = false;
+            }
+        },
+        async requestPermission() {
+            this.showLoader = true;
+
+            try {
+                const response = await HTTP_AUTH.post('/addAdminRole', this.permission);
+                alert(`New ${this.permission.name} Permission has been created`);
+                this.resetPermissions();
+                this.roles = response.data.roles;
+                this.showLoader = false;
+            } catch (error) {
+                this.showLoader = false;
+            }
+        },
+        async inviteUser() {
+            this.showLoader = true;
+
+            try {
+                await HTTP_AUTH.post('/addAdminUser', this.adminUser);
+                this.showLoader = false;
+            } catch (error) {
+                this.showLoader = false;
+            }
         },
         setLoader(buttonText) {
             return buttonText || '...';
         },
-           requestPromo() {
+        requestPromo() {
             this.setLoader(false);
             HTTP_AUTH.post('/Promo', this.permission)
                 .then((response) => {
@@ -280,8 +312,21 @@ export default {
                 })
                 .catch((error) => console.log(error));
         },
-        setLoader(buttonText) {
-            return buttonText || '...';
+        resetPermissions() {
+            this.permission = {
+                name: '',
+                admin: false,
+                dahsboard: false,
+                trips: false,
+                drivers: false,
+                passengers: false,
+                vehicles: false,
+                reports: false,
+                manualDispatch: false,
+                transaction: false,
+                priceManagement: false,
+                settings: false
+            };
         }
     }
 };
@@ -360,9 +405,10 @@ export default {
         width: 40%;
     }
 
-    // select {
-    //     width: 20%;
-    // }
+    select {
+        height: 31px;
+        background: transparent;
+    }
 }
 
 .change-password {
@@ -426,6 +472,10 @@ export default {
 
     input {
         width: 100%;
+    }
+
+    select {
+        width: calc(100% + 14px);
     }
 
     .inputs {
