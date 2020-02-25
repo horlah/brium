@@ -8,6 +8,7 @@ export default new Vuex.Store({
         collapseSideBar: false,
         activeModal: '',
         showModal: false,
+        showLoder: false,
         user: {
             isUserLoggedIn: false,
             data: null
@@ -23,6 +24,9 @@ export default new Vuex.Store({
         },
         ShowModalState: state => {
             return state.showModal;
+        },
+        ShowLoaderState: state => {
+            return state.showLoder;
         },
         GetUserData: state => {
             return state.user;
@@ -44,6 +48,9 @@ export default new Vuex.Store({
         TOGGLE_MODAL_STATE: (state, payload) => {
             state.showModal = payload;
         },
+        TOGGLE_LOADER_STATE: (state, payload) => {
+            state.showLoder = payload;
+        },
         UPDATE_LOGIN_STATE: (state, payload) => {
             state.user.isUserLoggedIn = payload;
         },
@@ -63,6 +70,9 @@ export default new Vuex.Store({
         },
         SET_MODAL_STATE: (context, payload) => {
             context.commit('TOGGLE_MODAL_STATE', payload);
+        },
+        SET_LOADER_STATE: (context, payload) => {
+            context.commit('TOGGLE_LOADER_STATE', payload);
         },
         SET_USER_DATA: (context, payload) => {
             context.commit('UPDATE_LOGIN_STATE', payload !== null);

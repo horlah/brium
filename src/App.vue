@@ -1,8 +1,21 @@
 <template>
     <div id="app">
         <router-view />
+        <Loader v-if="showLoader" />
     </div>
 </template>
+
+<script>
+import Loader from '@/components/Loader.vue';
+export default {
+    components: { Loader },
+    computed: {
+        showLoader() {
+            return this.$store.getters.ShowLoaderState;
+        }
+    }
+};
+</script>
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
@@ -203,10 +216,6 @@ button {
 
         &:first-child {
             margin-top: 20px;
-        }
-
-        & > div {
-            // border-right: 2px solid #F2F2F2;
         }
     }
 

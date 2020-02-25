@@ -143,7 +143,7 @@
             </div>
 
             <div class="promo" v-show="activeTab === 'promo'">
-                <div class="inputs">
+                <form v-on:submit.prevent="requestPermission">    <div class="inputs">
                     <div class="input">
                         <label for="EventCampaignName">Event/Campaign Name</label>
                         <input type="text" id="EventCampaignName" name="Event/Campaign Name">
@@ -166,31 +166,37 @@
 
                     <button>REQUEST A PERMISSION</button>
                 </div>
+                </form>
+
             </div>
 
             <div class="promo invite-admin" v-show="activeTab === 'invite-admin'">
                 <div class="inputs">
-                    <div class="input">
-                        <label for="fullName">First Name</label>
-                        <input type="text" id="firstName" name="first name">
-                    </div>
+                    <form v-on:submit.prevent="inviteUser">
+                        <div class="input">
+                            <label for="fullName">First Name</label>
+                            <input type="text" id="firstName" v-model="adminUser.firstName" name="first name">
+                        </div>
 
-                    <div class="input">
-                        <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="last name">
-                    </div>
+                        <div class="input">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" v-model="adminUser.lastName" name="last name">
+                        </div>
 
-                    <div class="input">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email">
-                    </div>
+                        <div class="input">
+                            <label for="newAdminEmail">Email Address</label>
+                            <input type="email" id="newAdminEmail" v-model="adminUser.email" name="email">
+                        </div>
 
-                    <div class="input">
-                        <label for="assignModules">Assign Modules</label>
-                        <input type="text" id="assignModules" name="assign modules">
-                    </div>
+                        <div class="input">
+                            <label for="assignModules">Assign Modules</label>
+                            <select name="role" id="role" v-model="adminUser.roleId">
+                                <option :value="role.id" v-for="(role, index) in roles" :key="index">{{ role.name }}</option>
+                            </select>
+                        </div>
 
-                    <button>INVITE</button>
+                        <button>INVITE</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -199,6 +205,7 @@
 
 <script>
 import { HTTP_AUTH } from '../../services/http';
+
 export default {
     data: () => {
         return {
@@ -216,16 +223,69 @@ export default {
                 transaction: false,
                 priceManagement: false,
                 settings: false
+            },
+            Promo: {
+                campaignName: '',
+                numOfUsers: '',
+                expiryDate: '',
+                numberOfRides: ''
+            },
+            roles: [],
+            adminUser: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: 'secret',
+                roleId: ''
             }
         };
     },
     methods: {
         switchTabs(activeTab) {
             this.activeTab = activeTab;
+
+            if (this.activeTab === 'invite-admin') this.getRoles();
         },
-        requestPermission() {
+        async getRoles() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.get('/fetcAdminRoles');
+                this.roles = response.data.roles;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
+        },
+        async requestPermission() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.post('/addAdminRole', this.permission);
+                alert(`New ${this.permission.name} Permission has been created`);
+                this.resetPermissions();
+                this.roles = response.data.roles;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
+        },
+        async inviteUser() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                await HTTP_AUTH.post('/addAdminUser', this.adminUser);
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
+        },
+        setLoader(buttonText) {
+            return buttonText || '...';
+        },
+        requestPromo() {
             this.setLoader(false);
-            HTTP_AUTH.post('/addAdminRole', this.permission)
+            HTTP_AUTH.post('/Promo', this.permission)
                 .then((response) => {
                     alert(`New ${this.permission.name} Permission has been created`);
                     this.permission = {
@@ -246,8 +306,21 @@ export default {
                 })
                 .catch((error) => console.log(error));
         },
-        setLoader(buttonText) {
-            return buttonText || '...';
+        resetPermissions() {
+            this.permission = {
+                name: '',
+                admin: false,
+                dahsboard: false,
+                trips: false,
+                drivers: false,
+                passengers: false,
+                vehicles: false,
+                reports: false,
+                manualDispatch: false,
+                transaction: false,
+                priceManagement: false,
+                settings: false
+            };
         }
     }
 };
@@ -326,9 +399,10 @@ export default {
         width: 40%;
     }
 
-    // select {
-    //     width: 20%;
-    // }
+    select {
+        height: 31px;
+        background: transparent;
+    }
 }
 
 .change-password {
@@ -392,6 +466,10 @@ export default {
 
     input {
         width: 100%;
+    }
+
+    select {
+        width: calc(100% + 14px);
     }
 
     .inputs {
