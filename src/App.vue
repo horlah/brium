@@ -374,6 +374,7 @@ button {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 27px;
 
         & > div {
             &:last-child {
@@ -393,7 +394,6 @@ button {
 
     .chart {
         width: 100%;
-        height: 25vh;
     }
 
     .tabs {
@@ -403,6 +403,7 @@ button {
             padding: 10px 5px;
             margin: 10px;
             font-size: .9rem;
+            outline: none;
 
             &.active {
                 border-bottom: 2px solid var(--primary-color);

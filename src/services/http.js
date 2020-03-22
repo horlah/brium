@@ -4,10 +4,12 @@ import Store from '../store';
 
 const env = environment === 'production' ? 'Production' : 'Staging';
 
+const token = Store.getters.userToken || localStorage.getItem('TOKEN');
+
 const HTTP_AUTH = axios.create({
     baseURL: apiUrl,
     headers: {
-        FIREBASE_AUTH_TOKEN: Store.state.userToken,
+        FIREBASE_AUTH_TOKEN: token,
         ENVIRONMENT: env
     }
 });

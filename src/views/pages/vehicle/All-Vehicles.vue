@@ -170,9 +170,10 @@ export default {
             this.$store.dispatch('SET_LOADER_STATE', true);
 
             try {
-                await HTTP_AUTH.post('/addCompanyVehicle', this.adminUser);
+                await HTTP_AUTH.post('/addCompanyVehicle', this.newVehicle);
                 this.closeModal();
                 this.$store.dispatch('SET_LOADER_STATE', false);
+                this.getAllVehicles();
             } catch (error) {
                 this.$store.dispatch('SET_LOADER_STATE', false);
             }

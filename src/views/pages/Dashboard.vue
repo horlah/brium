@@ -12,23 +12,23 @@
                 </div>
             </div>
             <div>
-                <div class="big-text">N1,140,574</div>
+                <div class="big-text">N {{dashboardData.amount}}</div>
                 <div class="small-text">Received</div>
             </div>
             <div>
-                <div class="big-text">20</div>
-                <div class="small-text">New Passengers</div>
+                <div class="big-text">{{ dashboardData.passengers }}</div>
+                <div class="small-text">Passengers</div>
             </div>
             <div>
-                <div class="big-text">574</div>
-                <div class="small-text">New Driver</div>
+                <div class="big-text">{{ dashboardData.drivers }}</div>
+                <div class="small-text">Drivers</div>
             </div>
             <div>
-                <div class="big-text">140,574</div>
+                <div class="big-text">{{ dashboardData.completed }}</div>
                 <div class="small-text">Rides Completed</div>
             </div>
 
-            <button class="see-more">See More</button>
+            <!-- <button class="see-more">See More</button> -->
         </section>
 
         <section class="big-chart total-earning">
@@ -40,9 +40,9 @@
 
                 <div>
                     <div class="tabs">
-                        <button class="tab">This Week</button>
-                        <button class="tab active">This Month</button>
-                        <button class="tab">This Year</button>
+                        <button class="tab" v-bind:class="{active: activeBigChart === 'weekly'}" @click="activeBigChart = 'weekly'; setupBigChart()">This Week</button>
+                        <button class="tab" v-bind:class="{active: activeBigChart === 'month'}" @click="activeBigChart = 'month'; setupBigChart()">This Month</button>
+                        <button class="tab" v-bind:class="{active: activeBigChart === 'year'}" @click="activeBigChart = 'year'; setupBigChart()">This Year</button>
                     </div>
 
                     <button>
@@ -51,23 +51,27 @@
                 </div>
             </div>
 
-            <div class="chart"></div>
+            <div class="chart">
+                <canvas id="bigChart" width="100%" height="24vh"></canvas>
+            </div>
         </section>
 
         <section class="small-cards">
             <div class="card">
-                <div class="chart"></div>
+                <div class="chart">
+                    <canvas id="totalDrivers" width="100%" height="50vh"></canvas>
+                </div>
 
                 <div class="details">
                     <h4>Total Drivers</h4>
-                    <div class="rate">
+                    <!-- <div class="rate">
                         <img src="../../assets/arrow-up.svg" alt="arrow up icon">
                         <span>25</span>
                         <span>drivers joined this week.</span>
-                    </div>
+                    </div> -->
                 </div>
 
-                <div class="more">
+                <!-- <div class="more">
                     <div>
                         <img src="../../assets/schedule.svg" alt="schedule icon">
                         <span>updated 4 minutes ago</span>
@@ -76,22 +80,48 @@
                     <div>
                         <img src="../../assets/calendar.svg" alt="calendar icon">
                     </div>
+                </div> -->
+            </div>
+
+            <div class="card">
+                <div class="chart">
+                    <canvas id="cancelledRides" width="100%" height="50vh"></canvas>
                 </div>
+
+                <div class="details">
+                    <h4>Completed - Cancelled Rides</h4>
+                    <!-- <div class="rate">
+                        <img src="../../assets/arrow-up.svg" alt="arrow up icon">
+                        <span>25</span>
+                        <span>drivers joined this week.</span>
+                    </div> -->
+                </div>
+
+                <!-- <div class="more">
+                    <div>
+                        <img src="../../assets/schedule.svg" alt="schedule icon">
+                        <span>updated 4 minutes ago</span>
+                    </div>
+
+                    <div>
+                        <img src="../../assets/calendar.svg" alt="calendar icon">
+                    </div>
+                </div> -->
             </div>
 
             <div class="card">
                 <div class="chart"></div>
 
                 <div class="details">
-                    <h4>Total Drivers</h4>
-                    <div class="rate">
+                    <h4>- -</h4>
+                    <!-- <div class="rate">
                         <img src="../../assets/arrow-up.svg" alt="arrow up icon">
                         <span>25</span>
                         <span>drivers joined this week.</span>
-                    </div>
+                    </div> -->
                 </div>
 
-                <div class="more">
+                <!-- <div class="more">
                     <div>
                         <img src="../../assets/schedule.svg" alt="schedule icon">
                         <span>updated 4 minutes ago</span>
@@ -100,35 +130,11 @@
                     <div>
                         <img src="../../assets/calendar.svg" alt="calendar icon">
                     </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="chart"></div>
-
-                <div class="details">
-                    <h4>Total Drivers</h4>
-                    <div class="rate">
-                        <img src="../../assets/arrow-up.svg" alt="arrow up icon">
-                        <span>25</span>
-                        <span>drivers joined this week.</span>
-                    </div>
-                </div>
-
-                <div class="more">
-                    <div>
-                        <img src="../../assets/schedule.svg" alt="schedule icon">
-                        <span>updated 4 minutes ago</span>
-                    </div>
-
-                    <div>
-                        <img src="../../assets/calendar.svg" alt="calendar icon">
-                    </div>
-                </div>
+                </div> -->
             </div>
         </section>
 
-        <section class="selected-trip-details">
+        <!-- <section class="selected-trip-details">
             <div>
                 <div>
                     <div class="head">Trip Id</div>
@@ -198,25 +204,100 @@
             <div class="map_">
                 <img src="../../assets/map.png" alt="map">
             </div>
-        </section>
+        </section> -->
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import * as firebase from 'firebase';
-// import store from '../../store';
+// import * as firebase from 'firebase';
+import { HTTP_AUTH } from '../../services/http';
+import mixins from '../../mixins/modal-mixun';
 
 export default {
     name: 'dashboard',
+    mixins: [mixins],
     data: () => {
         return {
-            totalSectionValue: 'Today'
+            totalSectionValue: 'Today',
+            dashboardData: {},
+            activeBigChart: 'year'
         };
     },
     methods: {
         updateTotalSectionData(activeStatus) {
             this.totalSectionValue = activeStatus;
+        },
+        async getDashboardData() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.get('/dashboard');
+                this.dashboardData = await response.data;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+
+                return;
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
+        },
+        setupBigChart() {
+            const bigChartlabel = [];
+            const bigChartdata = [];
+            const totalDriversChartlabel = [];
+            const totalDriversChartdata = [];
+            const cancelledRidesChartlabel = ['cancelled', 'completed'];
+            const cancelledRidesChartdata = [this.dashboardData.cancelled, this.dashboardData.completed];
+            const activeChart = this.activeBigChart + 'Data';
+            const yearData = this.dashboardData.yearData[this.dashboardData.yearData.length - 1];
+            const monthData = yearData.monthData[yearData.monthData.length - 1];
+
+            if (activeChart === 'monthData') {
+                yearData.monthData.forEach(dashboardDetail => {
+                    bigChartlabel.push(dashboardDetail.year);
+                    bigChartdata.push(dashboardDetail.amount);
+
+                    totalDriversChartlabel.push(dashboardDetail.year);
+                    totalDriversChartdata.push(dashboardDetail.drivers);
+                });
+            } else if (activeChart === 'weeklyData') {
+                monthData.weeklyData.forEach(dashboardDetail => {
+                    bigChartlabel.push(dashboardDetail.date);
+                    bigChartdata.push(dashboardDetail.amount);
+
+                    totalDriversChartlabel.push(dashboardDetail.date);
+                    totalDriversChartdata.push(dashboardDetail.drivers);
+                });
+            } else {
+                this.dashboardData.yearData.forEach(dashboardDetail => {
+                    bigChartlabel.push(dashboardDetail.year);
+                    bigChartdata.push(dashboardDetail.amount);
+
+                    totalDriversChartlabel.push(dashboardDetail.year);
+                    totalDriversChartdata.push(dashboardDetail.drivers);
+                });
+            }
+
+            this.setupChart({
+                elementId: 'bigChart',
+                labels: bigChartlabel,
+                data: bigChartdata,
+                type: 'line'
+            });
+
+            this.setupChart({
+                elementId: 'totalDrivers',
+                labels: totalDriversChartlabel,
+                data: totalDriversChartdata,
+                type: 'line'
+            });
+
+            this.setupChart({
+                elementId: 'cancelledRides',
+                labels: cancelledRidesChartlabel,
+                data: cancelledRidesChartdata,
+                type: 'doughnut'
+            });
         }
     },
     computed: {
@@ -224,13 +305,16 @@ export default {
             user: 'GetUserData'
         })
     },
-    mounted: () => {},
-    beforeRouteEnter: async(to, from, next) => {
-        firebase.auth().onAuthStateChanged(user => {
-            console.log(user);
-            if (!user) next('/login');
-            else next();
-        });
+    async mounted() {
+        await this.getDashboardData();
+        this.setupBigChart();
+    // },
+    // beforeRouteEnter: async(to, from, next) => {
+    //     firebase.auth().onAuthStateChanged(user => {
+    //         console.log(user);
+    //         if (!user) next('/login');
+    //         else next();
+    //     });
     }
 };
 </script>
@@ -357,16 +441,17 @@ export default {
             }
 
         .chart {
-            width: 90%;
+            width: calc(90% - 40px);
             margin: auto;
             padding: 0;
-            height: 20vh;
+            height: calc(20vh - 40px);
             background: black;
             position: absolute;
             top: -10vh;
             left: 50%;
             transform: translate(-50%, 0);
             box-shadow: 0px 4px 4px rgba(197, 191, 191, 0.16);
+            padding: 20px;
         }
 
         &:not(:first-child) {

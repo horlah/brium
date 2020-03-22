@@ -64,7 +64,7 @@
 
             <div class="details">
                 <p>4:33pm, Monday February 12 2018</p>
-                <p>Tejumola David <a href="#">Sign Out</a></p>
+                <p>Tejumola David <button @click="signOut()">Sign Out</button></p>
             </div>
             <div class="dispayPicture">
                 <img src="../assets/user.png" alt="user display picture">
@@ -75,6 +75,7 @@
 
 <script>
 import DropMenu from './Drop-Menu';
+import * as firebase from 'firebase';
 
 export default {
     name: 'top-nav',
@@ -95,6 +96,14 @@ export default {
         },
         setActiveDropDown(activeDropDown) {
             this.activeDropDown = this.activeDropDown === activeDropDown ? '' : activeDropDown;
+        },
+        signOut() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+            firebase.auth().signOut().then(() => {
+                this.$router.push({ name: 'Login', params: { state: 'logout' } });
+                this.$store.dispatch('SET_LOADER_STATE', false);
+                localStorage.clear('TOKEN');
+            }).catch(() => this.$store.dispatch('SET_LOADER_STATE', false));
         }
     }
 };
@@ -130,7 +139,8 @@ header {
         .details {
             margin-right: 30px;
 
-            a {
+            a,
+            button {
                 color: var(--primary-color);
             }
 
