@@ -61,6 +61,13 @@ button {
         position: relative;
         margin-bottom: 10px;
 
+        .label-title {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 200px;
+        }
+
         &::after {
             content: '';
             position: absolute;
@@ -338,6 +345,13 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
+
+        div {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 95px;
+        }
 
         img {
             width: 20%;

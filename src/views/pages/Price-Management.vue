@@ -3,85 +3,78 @@
         <button>ADD NEW CAR TYPE</button>
 
         <div class="prices">
-            <section>
+            <section v-for="(price, index) in prices" :key="index">
                 <div class="head">
                     <img src="../../assets/car-icon.png" alt="car icon">
-                    <div>BRIUM REGULAR</div>
+                    <div>{{ price.name }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Number of cars</div>
-                    <div>2318</div>
+                    <div>{{ price.cars }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Base Fare</div>
-                    <div>400</div>
+                    <div>{{ price.baseFare }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Price per km</div>
-                    <div>208</div>
+                    <div>NGN{{ price.costPerKm }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Price per minute</div>
-                    <div>2318</div>
+                    <div>NGN{{ price.costPerMin }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Cancellation fees</div>
-                    <div>188</div>
+                    <div>NGN{{ price.cancellationFee }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Cancellation time limit(min)</div>
-                    <div>8</div>
+                    <div>{{ price.cancellationLimit }}</div>
                 </div>
                 <div class="item">
                     <div class="label">Discount</div>
-                    <div>18%</div>
+                    <div>{{ price.discount }}%</div>
                 </div>
                 <div class="item">
                     <div class="label">Minimum fees</div>
-                    <div>118</div>
-                </div>
-            </section>
-            <section>
-                <div class="head">
-                    <img src="../../assets/car-icon.png" alt="car icon">
-                    <div>BRIUM REGULAR</div>
-                </div>
-                <div class="item">
-                    <div class="label">Number of cars</div>
-                    <div>2318</div>
-                </div>
-                <div class="item">
-                    <div class="label">Base Fare</div>
-                    <div>400</div>
-                </div>
-                <div class="item">
-                    <div class="label">Price per km</div>
-                    <div>208</div>
-                </div>
-                <div class="item">
-                    <div class="label">Price per minute</div>
-                    <div>2318</div>
-                </div>
-                <div class="item">
-                    <div class="label">Cancellation fees</div>
-                    <div>188</div>
-                </div>
-                <div class="item">
-                    <div class="label">Cancellation time limit(min)</div>
-                    <div>8</div>
-                </div>
-                <div class="item">
-                    <div class="label">Discount</div>
-                    <div>18%</div>
-                </div>
-                <div class="item">
-                    <div class="label">Minimum fees</div>
-                    <div>118</div>
+                    <div>NGN{{ price.minimum }}</div>
                 </div>
             </section>
         </div>
     </div>
 </template>
+
+<script>
+import { HTTP_AUTH } from '../../services/http';
+
+export default {
+    name: 'trips',
+    data: () => {
+        return {
+            prices: []
+        };
+    },
+    methods: {
+        async getPrices() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.get('/getPrices');
+                this.prices = await response.data.prices;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+
+                return;
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
+        }
+    },
+    async mounted() {
+        await this.getPrices();
+    }
+};
+</script>
 
 <style lang="scss" scoped>
 .price-management {

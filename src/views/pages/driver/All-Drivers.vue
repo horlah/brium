@@ -20,93 +20,16 @@
             <div>Status</div>
         </div>
         <div class="table-body">
-            <div @click="openDriver" class="driver table-item">
+            <div @click="openDriver" v-for="(driver, index) in drivers" :key="index" class="driver table-item">
                 <div class="name">
                     <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
+                    <div>{{ driver.firstName }} {{ driver.lastName }}</div>
                 </div>
-                <div class="mobile-no">08053524774</div>
+                <div class="mobile-no">{{ driver.phone }}</div>
                 <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
+                <div class="rating">{{ driver.rating }}</div>
+                <div class="date">{{ driver.createdOnValue | date }}</div>
                 <div class="status processing">PROCESSING</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
-            </div>
-            <div @click="openDriver" class="driver table-item">
-                <div class="name">
-                    <img src="../../../assets/user.png" alt="user image">
-                    <div>Cristabel Ade</div>
-                </div>
-                <div class="mobile-no">08053524774</div>
-                <div class="current-car">Toyota Camry</div>
-                <div class="rating">4.5</div>
-                <div class="date">29th, Jun 2017</div>
-                <div class="status approved">APPROVED</div>
             </div>
         </div>
 
@@ -126,12 +49,59 @@
 </template>
 
 <script>
+import { HTTP_AUTH } from '../../../services/http';
+
+const parseDate = function(date) {
+    const vehicleDate = new Date(date);
+
+    const monthArray = [];
+    monthArray[0] = 'January';
+    monthArray[1] = 'February';
+    monthArray[2] = 'March';
+    monthArray[3] = 'April';
+    monthArray[4] = 'May';
+    monthArray[5] = 'June';
+    monthArray[6] = 'July';
+    monthArray[7] = 'August';
+    monthArray[8] = 'September';
+    monthArray[9] = 'October';
+    monthArray[10] = 'November';
+    monthArray[11] = 'December';
+
+    const month = monthArray[vehicleDate.getMonth()];
+    return vehicleDate.getDate() + ', ' + month + ' ' + vehicleDate.getFullYear();
+};
+
 export default {
     name: 'all-drivers',
+    data: () => {
+        return {
+            drivers: []
+        };
+    },
+    filters: {
+        date: parseDate
+    },
     methods: {
         openDriver() {
             this.$router.push('/drivers/driver');
+        },
+        async getDrivers() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.get('/getAllDrivers?pageNo=1&pageCount=20');
+                this.drivers = await response.data.drivers;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+
+                return;
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
         }
+    },
+    async mounted() {
+        await this.getDrivers();
     }
 };
 </script>

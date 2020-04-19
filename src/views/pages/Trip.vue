@@ -15,14 +15,14 @@
         </div>
 
         <div class="trips-detail" v-show="activeTab === 'active'">
-            <div class="trip">
+            <div class="trip" v-for="(trip, index) in trips" :key="index">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/refresh.svg" alt="direction icon">
                     </div>
                     <div>
                         <div class="label">STATUS</div>
-                        <div class="status-title">PICKUP - 2MIN</div>
+                        <div class="status-title">{{ trip.status }} - 2MIN</div>
                     </div>
                 </div>
 
@@ -33,7 +33,7 @@
                         </div>
                         <div class="details">
                             <div class="label">DRIVER</div>
-                            <div>John Obinna</div>
+                            <div>{{ trip.driver.name }}</div>
                         </div>
                     </div>
                     <div class="client passenger">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="details">
                             <div class="label">PASSENGER</div>
-                            <div>John Obinna</div>
+                            <div>{{ trip.name }}</div>
                         </div>
                     </div>
                 </div>
@@ -62,11 +62,11 @@
                     <div class="trip-details">
                         <div class="pickup">
                             <div class="label">PICKUP</div>
-                            <div class="label-title">Adeleke Ade Road</div>
+                            <div class="label-title" :name="trip.destinationAddress">{{ trip.destinationAddress }}</div>
                         </div>
                         <div class="destination">
                             <div class="label">DROP OFF</div>
-                            <div class="label-title">Presidential Hotel</div>
+                            <div class="label-title" :name="trip.pickupAddress">{{ trip.pickupAddress }}</div>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                 </div>
             </div>
 
-            <div class="trip requesting">
+            <!-- <div class="trip requesting">
                 <div class="status">
                     <div class="status-icon">
                         <img src="../../assets/directions.svg" alt="direction icon">
@@ -397,7 +397,7 @@
                         <div class="price">N4,300</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="trips-detail" v-show="activeTab === 'upcoming'">
@@ -784,17 +784,36 @@
 </template>
 
 <script>
+import { HTTP_AUTH } from '../../services/http';
+
 export default {
     name: 'trips',
     data: () => {
         return {
-            activeTab: 'active'
+            activeTab: 'active',
+            trips: []
         };
     },
     methods: {
         switchTabs(activeTab) {
             this.activeTab = activeTab;
+        },
+        async getTrips() {
+            this.$store.dispatch('SET_LOADER_STATE', true);
+
+            try {
+                const response = await HTTP_AUTH.get('/trips?pageNo=1&pageCount=20');
+                this.trips = await response.data.trips;
+                this.$store.dispatch('SET_LOADER_STATE', false);
+
+                return;
+            } catch (error) {
+                this.$store.dispatch('SET_LOADER_STATE', false);
+            }
         }
+    },
+    async mounted() {
+        await this.getTrips();
     }
 };
 </script>

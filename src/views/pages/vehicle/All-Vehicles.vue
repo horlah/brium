@@ -20,7 +20,7 @@
                     </div>
                     <div>
                         <div class="label">DRIVER</div>
-                        <div>Cristabel Ade</div>
+                        <div>{{ vehicle.driverName }}</div>
                     </div>
                 </div>
                 <div>
@@ -30,7 +30,7 @@
                     </div>
                     <div>
                         <div class="label">CAR TYPE</div>
-                        <div>Sedan</div>
+                        <div>{{ vehicle.type }}</div>
                     </div>
                 </div>
                 <div>
@@ -60,7 +60,7 @@
                     </div>
                     <div>
                         <div class="label">LAST MODIFIED</div>
-                        <div>29th, Jun 2017</div>
+                        <div>{{ parseDate(vehicle.updatedOnvalue) }}</div>
                     </div>
                 </div>
             </div>

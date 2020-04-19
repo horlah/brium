@@ -12,9 +12,10 @@ module.exports = {
     rules: {
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        indent: ['error', 4],
         'semi': [2, 'always'],
         'space-before-function-paren': ['error', 'never'],
+        "template-curly-spacing" : "off",
+        'indent' : "off"
     },
     parserOptions: {
         parser: 'babel-eslint'
